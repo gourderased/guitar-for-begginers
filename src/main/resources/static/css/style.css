@@ -1,0 +1,16 @@
+
+nav{
+    background-color:#F2F2F2;
+}
+nav a{
+    color: black;
+}
+main a{
+    color: black;
+    font-size: 26px;
+}
+footer{
+    margin-top:200px;
+    background-color:#595959;
+    color:white;
+}
