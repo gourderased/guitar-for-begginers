@@ -1,4 +1,4 @@
-package com.example.guitarforbegginers.Board.dto;
+package com.example.guitarforbegginers.board.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.example.guitarforbegginers.Board;
+package com.example.guitarforbegginers.board;
 
 
 import com.example.guitarforbegginers.member.Member;

@@ -3,12 +3,19 @@ package com.example.guitarforbegginers.member;
 
 import com.example.guitarforbegginers.config.BaseException;
 import com.example.guitarforbegginers.config.BaseResponse;
+import com.example.guitarforbegginers.config.BaseResponseStatus;
 import com.example.guitarforbegginers.member.dto.GetMemberRes;
 import com.example.guitarforbegginers.member.dto.PostLoginReq;
 import com.example.guitarforbegginers.member.dto.PostMemberReq;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -18,6 +25,8 @@ public class MemberController{
 
     private final MemberService memberService;
 
+    @Autowired
+    private HttpServletRequest request;
     /**
      * 회원 가입
      */
@@ -29,8 +38,15 @@ public class MemberController{
      * 유저 로그인
      */
     @PostMapping("/log-in")
-    public Long login(@RequestBody PostLoginReq postLoginReq) throws BaseException {
-        return memberService.login(postLoginReq);
+    public Long login(@RequestBody PostLoginReq postLoginReq,Model model) throws BaseException {
+
+        Long memberId = memberService.login(postLoginReq);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("memberId", memberId);
+        session.setAttribute("isLogin", true);
+
+        return memberId;
     }
     /**
      * 회원 조회
@@ -55,4 +71,5 @@ public class MemberController{
         memberService.delete(id);
         return id;
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.guitarforbegginers.config;
 
 import lombok.Getter;
+import org.springframework.web.client.HttpClientErrorException;
 
 @Getter
 public enum BaseResponseStatus {

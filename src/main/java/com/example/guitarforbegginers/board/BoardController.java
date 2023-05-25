@@ -1,10 +1,16 @@
-package com.example.guitarforbegginers.Board;
+package com.example.guitarforbegginers.board;
 
-import com.example.guitarforbegginers.Board.dto.*;
+
+import com.example.guitarforbegginers.board.dto.GetBoardRes;
+import com.example.guitarforbegginers.board.dto.PatchBoardReq;
+import com.example.guitarforbegginers.board.dto.PostBoardReq;
+import com.example.guitarforbegginers.board.dto.PostBoardRes;
 import com.example.guitarforbegginers.config.BaseException;
 import com.example.guitarforbegginers.config.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+
 
 @RequiredArgsConstructor
 @RestController

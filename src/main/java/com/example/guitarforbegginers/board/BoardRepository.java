@@ -1,4 +1,4 @@
-package com.example.guitarforbegginers.Board;
+package com.example.guitarforbegginers.board;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

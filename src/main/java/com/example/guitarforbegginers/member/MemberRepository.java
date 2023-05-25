@@ -7,12 +7,17 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface MemberRepository extends JpaRepository<Member,Long> {
-    @Query("select m from Member m where m.loginId = :loginId")
-    Member findMemberByLoginId(@Param("loginId") String loginId);
+//    @Query("select m from Member m where m.loginId = :loginId")
+//    Member findMemberByLoginId(@Param("loginId") String loginId);
+
+    Member findByLoginId(String loginId);
 
     @Query("select m from Member m")
     List<Member> findMembers();
 
     @Query("select m from Member m where m.id = :id")
     Member findMemberById(@Param("id") Long id);
+
+    @Query("select count(*) from Member m")
+    int countMember();
 }

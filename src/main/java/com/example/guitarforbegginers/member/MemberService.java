@@ -9,6 +9,7 @@ import com.example.guitarforbegginers.utils.AES128;
 import com.example.guitarforbegginers.utils.Secret;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ import static com.example.guitarforbegginers.config.BaseResponseStatus.*;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+
     /**
      * 회원가입
      */
@@ -45,7 +47,7 @@ public class MemberService {
      * 로그인
      */
     public Long login(PostLoginReq postLoginReq) throws BaseException{
-        Member member = memberRepository.findMemberByLoginId(postLoginReq.getLoginId());
+        Member member = memberRepository.findByLoginId(postLoginReq.getLoginId());
         String password;
         try {
             password = new AES128(Secret.USER_INFO_PASSWORD_KEY).decrypt(member.getPassword());
@@ -59,6 +61,12 @@ public class MemberService {
             throw new BaseException(FAILED_TO_LOGIN);
         }
     }
+
+
+
+
+
+
     /**
      * 모든 회원 조회
      */
@@ -94,5 +102,18 @@ public class MemberService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. id=" + id));
         memberRepository.delete(member);
+    }
+
+    @Transactional
+    public Member findByIdAndReturnMember(Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. id=" + id));
+        return member;
+    }
+
+    @Transactional
+    public int findMemberCount() {
+        int count = memberRepository.countMember();
+        return count;
     }
 }

@@ -1,10 +1,5 @@
-package com.example.guitarforbegginers.Board;
-
-
-import com.example.guitarforbegginers.Board.dto.PatchBoardReq;
-import com.example.guitarforbegginers.Board.dto.PostBoardReq;
-import com.example.guitarforbegginers.Board.dto.GetBoardRes;
-import com.example.guitarforbegginers.Board.dto.PostBoardRes;
+package com.example.guitarforbegginers.board;
+import com.example.guitarforbegginers.board.dto.*;
 import com.example.guitarforbegginers.config.BaseException;
 import com.example.guitarforbegginers.member.Member;
 import com.example.guitarforbegginers.member.MemberRepository;
@@ -42,7 +37,7 @@ public class BoardService {
     @Transactional
     public String modifyBoard(Long id, PatchBoardReq patchBoardReq) throws BaseException {
         try{
-            Board board = boardRepository.getReferenceById(id);
+            Board board = boardRepository.findById(id).orElseThrow();
             board.updateBoard(patchBoardReq.getTitle(), patchBoardReq.getContent());
             return board.getTitle();
         } catch(Exception exception) {
@@ -52,7 +47,7 @@ public class BoardService {
 
     public GetBoardRes getBoard(Long id) throws BaseException {
         try {
-            Board board = boardRepository.getReferenceById(id);
+            Board board = boardRepository.findById(id).orElseThrow();
             Member member = board.getMember();
             String memberLoginId = member.getLoginId();
             return new GetBoardRes(board.getTitle(), board.getContent(), board.getView(), memberLoginId);
@@ -67,7 +62,8 @@ public class BoardService {
     @Transactional
     public String deleteBoard(Long id) throws BaseException {
         try {
-            Board board = boardRepository.getReferenceById(id);
+            Board board = boardRepository.findById(id).orElseThrow();
+
             boardRepository.delete(board);
             return "삭제 완료!";
         } catch(Exception exception) {
