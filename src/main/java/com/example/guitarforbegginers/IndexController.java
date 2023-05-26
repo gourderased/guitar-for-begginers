@@ -6,6 +6,9 @@ import com.example.guitarforbegginers.config.BaseException;
 import com.example.guitarforbegginers.member.Member;
 import com.example.guitarforbegginers.member.MemberService;
 import com.example.guitarforbegginers.member.dto.GetMemberRes;
+import com.example.guitarforbegginers.product.Product;
+import com.example.guitarforbegginers.product.ProductService;
+import com.example.guitarforbegginers.product.dto.GetProductRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +24,7 @@ public class IndexController {
 
     private final MemberService memberService;
     private final BoardService boardService;
+    private final ProductService productService;
 
     /**
      * 메인 페이지
@@ -46,16 +50,20 @@ public class IndexController {
             model.addAttribute("isLogin", true);
             model.addAttribute("isLogout", false);
 
-            if(member.getStatus() == 1) {
-                model.addAttribute("isManger", false);
+            if(member.getRole() == 1) {
+                model.addAttribute("isManager", false);
+
             }
-            else model.addAttribute("isManger", true);
+            else {
+                model.addAttribute("isManager", true);
+            }
+
         }
         else {
             model.addAttribute("loginId", "");
             model.addAttribute("id", "");
             model.addAttribute("isLogout", true);
-            model.addAttribute("isManger", false);
+            model.addAttribute("isManager", false);
         }
         return "index";
     }
@@ -116,14 +124,31 @@ public class IndexController {
     /**
      * 상품 목록 - 일렉
      */
-
+    @GetMapping("/product-electric")
+    public  String product_electric(Model model) throws BaseException {
+        List<GetProductRes> getProductRes = productService.getProducts(1L);
+        model.addAttribute("products", getProductRes);
+        return "product-electric";
+    }
     /**
      * 상품 목록 - 베이스
      */
+    @GetMapping("/product-bass")
+    public  String product_bass(Model model) throws BaseException {
+        List<GetProductRes> getProductRes = productService.getProducts(2L);
+        model.addAttribute("products", getProductRes);
+        return "product-bass";
+    }
+
     /**
      * 상품 목록 - 어쿠스틱
      */
-
+    @GetMapping("/product-acoustic")
+    public  String product_acoustic(Model model) throws BaseException {
+        List<GetProductRes> getProductRes = productService.getProducts(3L);
+        model.addAttribute("products", getProductRes);
+        return "product-acoustic";
+    }
     /**
      * 상품 상세화면
      */

@@ -14,3 +14,12 @@ footer{
     background-color:#595959;
     color:white;
 }
+#img1 {
+    margin-top : 30px;
+}
+ .card-text {
+     display: -webkit-box;
+     -webkit-line-clamp: 3;
+     -webkit-box-orient: vertical;
+     overflow: hidden;
+ }

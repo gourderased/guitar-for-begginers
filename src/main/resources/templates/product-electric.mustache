@@ -1,0 +1,28 @@
+{{>layout/header}}
+<body>
+<div class="mb-5 text-center">
+    <h1>ELECTRIC</h1>
+</div>
+
+<div class="container">
+    <h1>상품 목록</h1>
+    <div class="row">
+        {{#products}}
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{imgUrl}}" class="card-img-top" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{title}}</h5>
+                        <p class="card-text">{{content}}</p>
+                        <p class="card-text">Price: {{price}}</p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        {{/products}}
+    </div>
+</div>
+
+</body>
+{{>layout/footer}}
+
