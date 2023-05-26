@@ -1,0 +1,123 @@
+{{>layout/header}}
+<body>
+<!--navbar-->
+
+<nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1">
+                <a class="navbar-brand" href="#">
+                    <img src="/img/logo.png" alt="" width="40" height="30" class="d-inline-block align-text-top">
+                    GFB
+                </a>
+            </div>
+
+
+
+            <div class="col-md-3">
+            </div>
+
+
+            <div class="col-md-8">
+                <ul class=" text-light nav justify-content-end" >
+                    {{#isLogin}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{{loginId}}님 환영합니다.</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/member/log-out">로그아웃</a>
+                    </li>
+                    {{/isLogin}}
+                    {{#isLogout}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/member/log-in">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/member/create">회원가입</a>
+                    </li>
+                    {{/isLogout}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/member/my-info">내 정보</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">장바구니</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/manager">관리자 페이지</a>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</nav>
+<!--main-->
+<main class="container-fluid">
+    <ul class="text-dark nav justify-content-center">
+
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Electric</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Bass</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Acoustic</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active " href="/Support" >Support</a>
+        </li>
+    </ul>
+
+    <img src="/img/main1.png" class="img-fluid" alt="...">
+
+</main>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="footer-box">
+                    <div class="first-box">
+                        <div class="first-box-logo">
+                            Guitar for beginners
+                        </div>
+                        <div class="first-box-info">
+                            매장위치:인천광역시 미추홀구 용현동<br>
+                            상호명:(주)GFB<br>
+                            대표이사:박지운<br>
+                            사업자 등록번호:123-45-09876<br>
+                            Tel:1234-9876 | 팩스 032-123-8765
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <div class="footer-box">
+                    <div class="second-box">
+                        <div class="second-box-support">
+                            <b>고객지원센터</b><br>
+                            1234-9876
+                        </div>
+                        <div class="second-box-time">
+                            <b>평일</b> 오전 10시 ~ 오후 6시<br>
+                            <b>점심</b> 오후 1시 ~ 오후 2시<br>
+                            토요일, 일요일/공휴일 휴무<br>
+                            E-mail:gourderased@gmail.com
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</footer>
+
+{{>layout/footer}}

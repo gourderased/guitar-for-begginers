@@ -1,0 +1,28 @@
+{{>layout/header}}
+
+<body>
+
+<div class="container">
+
+<div class="mb-5 text-center">
+    <h2>로그인</h2>
+</div>
+<form>
+    <div class="mb-3">
+        <label for="InputId" class="form-label">아이디</label>
+        <input type="text" class="form-control" id="inputId" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text"></div>
+    </div>
+    <div class="mb-3">
+        <label for="InputPw" class="form-label">패스워드</label>
+        <input type="password" class="form-control" id="inputPw">
+    </div>
+
+    <hr class="mb-4">
+
+    <a href="/" type="button" class="btn btn-secondary">취소</a>
+    <button type="button" class="btn btn-primary" id="btn-login">로그인</button>
+</form>
+</div>
+</body>
+{{>layout/footer}}

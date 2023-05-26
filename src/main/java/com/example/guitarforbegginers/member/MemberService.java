@@ -62,11 +62,6 @@ public class MemberService {
         }
     }
 
-
-
-
-
-
     /**
      * 모든 회원 조회
      */
@@ -74,13 +69,12 @@ public class MemberService {
         try {
             List<Member> members = memberRepository.findMembers();
             List<GetMemberRes> GetMemberRes = members.stream()
-                    .map(member -> new GetMemberRes(member.getId(), member.getLoginId(), member.getEmail(), member.getStatus()))
+                    .map(member -> new GetMemberRes(member.getId(), member.getLoginId(), member.getEmail(), member.getPassword(), member.getStatus(), member.getCreateDate() , member.getModifiedDate()))
                     .collect(Collectors.toList());
             return GetMemberRes;
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
-
     }
 
     /**
@@ -89,7 +83,7 @@ public class MemberService {
     public GetMemberRes getMemberById(Long id) throws BaseException{
         try {
             Member member = memberRepository.findMemberById(id);
-            GetMemberRes getMemberRes =  new GetMemberRes(member.getId(), member.getLoginId(), member.getEmail(), member.getStatus());
+            GetMemberRes getMemberRes =  new GetMemberRes(member.getId(), member.getLoginId(), member.getEmail(), member.getPassword(), member.getStatus(), member.getCreateDate() , member.getModifiedDate());
             return getMemberRes;
 
         } catch(Exception exception) {

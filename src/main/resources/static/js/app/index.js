@@ -9,8 +9,15 @@ var main = {
         $('#btn-login').on('click', function () {
             _this.login();
         });
-    },
+        $('#btn-Member-delete').on('click', function () {
+            _this.memberDelete();
+        });
+        $('#btn-board-delete').on('click', function() {
+            _this.boardDelete();
+        });
 
+    },
+    //회원가입
     save : function () {
         var data = {
             loginId: $('#inputId').val(),
@@ -30,7 +37,7 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
-
+    //로그인
     login : function () {
         var data = {
             loginId: $('#inputId').val(),
@@ -50,8 +57,46 @@ var main = {
         }).fail(function(error){
             alert(JSON.stringify(error));
         });
-    }
+    },
+    //관리자 - 회원 삭제
+    memberDelete : function () {
+        var id = $('#inputIndex').val();
+        var data ={}
+        $.ajax({
+            type: 'DELETE',
+            url: 'member/delete/' + id,
+            datatype: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('삭제가 완료되었습니다.');
+            window.location.href='/';
+        }).fail(function(error){
+            alert(JSON.stringify(error));
+        });
+    },
+    //관리자 - 게시글 삭제
+    boardDelete : function () {
+        var id = $('#inputIndex').val();
+        var data ={}
+        $.ajax({
+            type: 'DELETE',
+            url: 'board/delete/' + id,
+            datatype: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('삭제가 완료되었습니다.');
+            window.location.href='/';
+        }).fail(function(error){
+            alert(JSON.stringify(error));
+        });
+    },
+    //게시글 등록
 
+    //장바구니 담기
+
+    //구매하기
 };
 
 main.init();

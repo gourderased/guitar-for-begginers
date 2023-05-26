@@ -22,17 +22,15 @@ public class Board extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
-    private int view;
+
 
     @ManyToOne
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
-    Board createBoard(String title, String content, int view, Member member) {
+    Board createBoard(String title, String content,  Member member) {
         this.title = title;
         this.content = content;
-        this.view = view;
         this.member = member;
         return this;
     }

@@ -3,16 +3,13 @@ package com.example.guitarforbegginers.member;
 
 import com.example.guitarforbegginers.config.BaseException;
 import com.example.guitarforbegginers.config.BaseResponse;
-import com.example.guitarforbegginers.config.BaseResponseStatus;
 import com.example.guitarforbegginers.member.dto.GetMemberRes;
 import com.example.guitarforbegginers.member.dto.PostLoginReq;
 import com.example.guitarforbegginers.member.dto.PostMemberReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -66,7 +63,7 @@ public class MemberController{
     /**
      * 유저 삭제
      */
-    @DeleteMapping("/delete/members/{id}")
+    @DeleteMapping("/delete/{id}")
     public Long delete(@PathVariable Long id) {
         memberService.delete(id);
         return id;

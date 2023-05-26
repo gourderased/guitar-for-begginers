@@ -1,0 +1,54 @@
+{{>layout/header}}
+
+<h1>유저 관리</h1>
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                    <label for="inputIndex" class="col-form-label">탈퇴할 회원 번호 입력:</label>
+                </div>
+                <div class="form-group col-auto">
+                    <input type="number" id="inputIndex" class="form-control" aria-describedby="passwordHelpInline">
+                </div>
+                <button  type ="button" class="btn btn-danger" id="btn-Member-delete">유저 탈퇴</button>
+
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <!-- 목록 출력 영역 -->
+    <table class="table table-horizontal table-bordered">
+        <thead class="thead-strong">
+        <tr>
+            <th>유저번호</th>
+            <th>아이디</th>
+            <th>패스워드</th>
+            <th>이메일</th>
+            <th>상태</th>
+            <th>가입일</th>
+            <th>최종 수정일</th>
+
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        {{#Members}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{loginId}}</td>
+                <td>{{password}}</td>
+                <td>{{email}}</td>
+                <td>{{status}}</td>
+                <td>{{createdDate}}</td>
+                <td>{{modifiedDate}}</td>
+
+            </tr>
+        {{/Members}}
+        </tbody>
+    </table>
+</div>
+
+
+
+{{>layout/footer}}

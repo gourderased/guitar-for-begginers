@@ -10,6 +10,5 @@ public class PostBoardReq {
 
     private String title;
     private String content;
-    private int view;
     private Long memberLoginId;
 }

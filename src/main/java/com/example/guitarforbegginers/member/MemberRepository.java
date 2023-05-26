@@ -12,6 +12,7 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
 
     Member findByLoginId(String loginId);
 
+
     @Query("select m from Member m")
     List<Member> findMembers();
 
@@ -20,4 +21,6 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
 
     @Query("select count(*) from Member m")
     int countMember();
+
+
 }

@@ -1,0 +1,32 @@
+{{>layout/header}}
+
+<body>
+
+<div class="container">
+
+    <div class="mb-5 text-center">
+        <h2>회원 가입</h2>
+    </div>
+    <form>
+        <div class="mb-3">
+            <label for="LoginId" class="form-label">아이디</label>
+            <input type="text" class="form-control" id="inputId" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text"></div>
+        </div>
+        <div class="mb-3">
+            <label for="Password" class="form-label">패스워드</label>
+            <input type="password" class="form-control" id="inputPw">
+        </div>
+        <div class="mb-3">
+            <label for="Email" class="form-label">이메일</label>
+            <input type="email" class="form-control" id="inputEmail">
+        </div>
+
+        <hr class="mb-4">
+
+        <a href="/" type="button" class="btn btn-secondary">취소</a>
+        <button type="button" class="btn btn-primary" id="btn-singup">가입하기</button>
+    </form>
+</div>
+</body>
+{{>layout/footer}}
