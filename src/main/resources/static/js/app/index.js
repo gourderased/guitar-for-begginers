@@ -4,7 +4,7 @@ var main = {
         var _this = this;
 
         $('#btn-singup').on('click', function () {
-            _this.save();
+            _this.signup();
         });
         $('#btn-login').on('click', function () {
             _this.login();
@@ -15,10 +15,13 @@ var main = {
         $('#btn-board-delete').on('click', function() {
             _this.boardDelete();
         });
+        $('#btn-board-save').on('click', function() {
+            _this.boardSave();
+        })
 
     },
     //회원가입
-    save : function () {
+    signup : function () {
         var data = {
             loginId: $('#inputId').val(),
             password: $('#inputPw').val(),
@@ -93,7 +96,26 @@ var main = {
         });
     },
     //게시글 등록
+    boardSave : function () {
+        var data = {
+            title: $('#title').val(),
+            content: $('#content').val(),
+            memberId: $('#memberId').val()
+        };
 
+        $.ajax({
+            type: 'POST',
+            url: '/board/create',
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('글이 등록되었습니다.');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    }
     //장바구니 담기
 
     //구매하기

@@ -28,7 +28,7 @@ public class BoardService {
     @Transactional
     public PostBoardRes createBoard(PostBoardReq postBoardReq) throws BaseException {
         try{
-            Member member = memberRepository.findMemberById(postBoardReq.getMemberLoginId());
+            Member member = memberRepository.findMemberById(postBoardReq.getMemberId());
             Board board = new Board();
             board.createBoard(postBoardReq.getTitle(), postBoardReq.getContent(), member);
             boardRepository.save(board);
@@ -95,6 +95,7 @@ public class BoardService {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
 
 
 }

@@ -23,7 +23,6 @@ public class Board extends BaseTimeEntity {
     private String content;
 
 
-
     @ManyToOne
     @JoinColumn(name="MEMBER_ID")
     private Member member;

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -134,11 +135,38 @@ public class IndexController {
     /**
      * 게시판 목록
      */
-    @GetMapping("/support")
-    public String support() throws BaseException {
-        return "support";
+    @GetMapping("/board")
+    public String board(Model model) throws BaseException {
+        model.addAttribute("boards", boardService.getBoards());
+        return "board-list";
     }
     /**
      * 게시글 작성
      */
+    @GetMapping("/board-save")
+    public String board_save(HttpSession session,Model model) throws BaseException {
+        Long id = (Long)session.getAttribute("memberId");
+        model.addAttribute("memberId", id);
+        return "board-save";
+    }
+    /**
+     * 게시글 수정
+     */
+    @GetMapping("/board-update/{id}")
+    public String board_update(@PathVariable Long id, HttpSession session,Model model) throws BaseException {
+        GetBoardRes getBoardRes= boardService.getBoard(id);
+        Long memberId = (Long)session.getAttribute("memberId");
+
+        model.addAttribute("board", getBoardRes);
+        model.addAttribute("memberId",id);
+        return "board-update";
+    }
+    /**
+     * 로그아웃
+     */
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
 }
