@@ -42,7 +42,6 @@ public class BoardController {
         }
     }
 
-
     /**
      * 게시글 수정
      */
