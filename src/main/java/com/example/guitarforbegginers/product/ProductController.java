@@ -41,8 +41,6 @@ public class ProductController {
         }
     }
 
-
-
     /**
      * 카테고리 별 상품 조회
      */

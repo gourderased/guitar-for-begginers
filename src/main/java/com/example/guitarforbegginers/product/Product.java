@@ -25,8 +25,11 @@ public class Product extends BaseTimeEntity {
     @Column(nullable = false)
     private String imgUrl;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private Integer price;
+
+    @Column(nullable = false)
+    private int quantity;
 
     @OneToOne
     @JoinColumn(name="CATEGORY_ID")
@@ -39,5 +42,10 @@ public class Product extends BaseTimeEntity {
         this.price = price;
         this.category = category;
         return this;
+    }
+
+    public void updateQuantity(int sold) {
+        this.quantity -= sold;
+        if(this.quantity < 0) this.quantity =0;
     }
 }

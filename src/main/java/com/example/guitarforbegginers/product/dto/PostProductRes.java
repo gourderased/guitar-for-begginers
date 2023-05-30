@@ -1,6 +1,5 @@
 package com.example.guitarforbegginers.product.dto;
 
-import com.example.guitarforbegginers.category.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

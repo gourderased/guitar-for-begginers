@@ -11,5 +11,5 @@ public class GetProductRes {
     private String content;
     private String imgUrl;
     private int price;
-
+    private int quantity;
 }
