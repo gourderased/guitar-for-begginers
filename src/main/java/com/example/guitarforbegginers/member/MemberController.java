@@ -8,7 +8,6 @@ import com.example.guitarforbegginers.member.dto.PostLoginReq;
 import com.example.guitarforbegginers.member.dto.PostMemberReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +34,7 @@ public class MemberController{
      * 유저 로그인
      */
     @PostMapping("/log-in")
-    public Long login(@RequestBody PostLoginReq postLoginReq,Model model) throws BaseException {
+    public Long login(@RequestBody PostLoginReq postLoginReq) throws BaseException {
 
         Long memberId = memberService.login(postLoginReq);
 
