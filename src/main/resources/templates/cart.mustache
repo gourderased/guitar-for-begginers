@@ -1,0 +1,35 @@
+{{>layout/header}}
+
+<body>
+<div class="container">
+    <h2>장바구니</h2>
+    <br>
+    <div class="row">
+        {{#cartItems}}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{imgUrl}}" class="card-img-top" alt="Product Image">
+                    <div class="card-body">
+                        <input type="hidden" value={{productId}}>
+                        <h5 class="card-title">{{title}}</h5>
+                        <p class="card-text">Price: {{price}}</p>
+                        <p class="card-text">Quantity: <span id="quantity-{{productId}}">{{quantity}}</span></p>
+                        <div class="quantity-controls">
+                            <button class="btn btn-sm btn-secondary" onclick="decreaseQuantity({{productId}})">-</button>
+                            <button class="btn btn-sm btn-secondary" onclick="increaseQuantity({{productId}})">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/cartItems}}
+    </div>
+
+    <div class="text-right">
+        <button id="btn-payment" class="btn btn-primary">결제하기</button>
+    </div>
+
+    <input type="hidden" id= "memberId" value={{memberId}}>
+</div>
+
+</body>
+{{>layout/footer}}
