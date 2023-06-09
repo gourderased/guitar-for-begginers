@@ -3,7 +3,6 @@ package com.example.guitarforbegginers.category;
 import com.example.guitarforbegginers.category.dto.GetCategoryRes;
 import com.example.guitarforbegginers.category.dto.PostCategoryReq;
 import com.example.guitarforbegginers.config.BaseException;
-import com.example.guitarforbegginers.config.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +23,6 @@ public class CategoryService {
      */
     @Transactional
     public Long save(PostCategoryReq postCategoryReq) {
-
         Category category = new Category();
         category.createCategory(postCategoryReq.getName());
         categoryRepository.save(category);
