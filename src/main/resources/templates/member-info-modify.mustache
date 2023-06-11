@@ -1,0 +1,22 @@
+{{>layout/header}}
+<body>
+<div class="container">
+
+    <div class="mb-5 text-center">
+        <h2>회원 정보 수정하기</h2>
+    </div>
+    <form>
+        <div class="mb-3">
+            <label for="inputEmail" class="form-label">수정 이메일 입력</label>
+            <input type="email" class="form-control" id="inputEmail" value={{memberEmail}}>
+            <input type="hidden" id="memberId" value={{memberId}}>
+        </div>
+
+        <hr class="mb-4">
+
+        <a href="/" type="button" class="btn btn-secondary">취소</a>
+        <button type="button" class="btn btn-primary" id="btn-modify">수정하기 </button>
+    </form>
+</div>
+</body>
+{{>layout/footer}}
