@@ -1,9 +1,7 @@
 var main = {
     init: function () {
-
         var _this = this;
-
-        $('#btn-singup').on('click', function () {
+        $('#btn-signup').on('click', function () {
             _this.signup();
         });
         $('#btn-login').on('click', function () {
@@ -17,9 +15,90 @@ var main = {
         });
         $('#btn-board-save').on('click', function() {
             _this.boardSave();
-        })
+        });
+        $('#btn-modify').on('click', function() {
+            _this.memberModify();
+        });
+        $(document).on('click', '.btn-add-cart', function() {
+            _this.addCart(this);
+        });
+        $('#btn-payment').on('click', function() {
+            _this.processPayment();
+        });
 
     },
+    // 결제하기 버튼
+    processPayment: function () {
+        var memberId = $('#memberId').val();
+        var cartItems = $('.card');
+        var paymentReqList = [];
+
+        cartItems.each(function () {
+            console.log(cartItems);
+            var card = $(this);
+            var productId = card.find('input[type="hidden"]').val(); // productId 가져오기
+            var price = parseInt(card.find('.card-text:contains("Price")').text().split(':')[1].trim()); // price 가져오기
+            var quantity = parseInt(card.find('.card-text:contains("Quantity") span').text()); // quantity 가져오기
+            console.log(card,productId,price,quantity);
+
+            var paymentReq = {
+                memberId: memberId,
+                productId: productId,
+                price: price,
+                quantity: quantity
+            };
+            paymentReqList.push(paymentReq);
+        });
+        var data= paymentReqList
+
+        $.ajax({
+            type: 'POST',
+            url: '/cart/payment',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function (response) {
+            if(response.isSuccess) {
+                alert('결제가 완료되었습니다.');
+                window.location.href='/';
+            }
+            else {
+                alert(response.message);
+            }
+        }).fail(function (error) {
+            alert('결제에 실패했습니다. 다시 시도해주세요.');
+
+        });
+    },
+
+
+    //장바구니 담기
+    addCart : function (btn) {
+        var memberId = $(btn).data('member-id');
+
+        if (memberId === '0') {
+            alert('로그인이 필요합니다.');
+            return;
+        }
+        var productId = $(btn).data('product-id');
+
+        var data = {
+            memberId: memberId,
+            productId: productId
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/cart/create',
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('장바구니에 담겼습니다.');
+        }).fail(function (error) {
+            alert('로그인이 필요합니다.');
+        });
+    },
+
     //회원가입
     signup : function () {
         var data = {
@@ -33,11 +112,15 @@ var main = {
             datatype: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
-        }).done(function() {
-            alert('가입이 완료되었습니다.');
-            window.location.href='/';
-        }).fail(function(error){
-            alert(JSON.stringify(error));
+        }).done(function(response) {
+            if(response.isSuccess) {
+                alert("가입완료되었습니다.");
+                window.location.href='/';
+            } else {
+                alert(response.message);
+            }
+        }).fail(function(){
+            alert("요청이 실패하였습니다.");
         });
     },
     //로그인
@@ -45,7 +128,6 @@ var main = {
         var data = {
             loginId: $('#inputId').val(),
             password: $('#inputPw').val(),
-
         };
         $.ajax({
             type: 'POST',
@@ -61,6 +143,27 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
+    //회원 정보 수정
+    memberModify :function() {
+        var id = $('#memberId').val();
+        var data = {
+            email: $('#inputEmail').val(),
+        };
+
+        $.ajax({
+            type: 'PATCH',
+            url: '/member/modify/' + id,
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('수정이 완료되었습니다.');
+            window.location.href='/member/my-info';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
     //관리자 - 회원 삭제
     memberDelete : function () {
         var id = $('#inputIndex').val();
@@ -102,7 +205,6 @@ var main = {
             content: $('#content').val(),
             memberId: $('#memberId').val()
         };
-
         $.ajax({
             type: 'POST',
             url: '/board/create',
@@ -116,9 +218,23 @@ var main = {
             alert(JSON.stringify(error));
         });
     }
-    //장바구니 담기
 
-    //구매하기
 };
 
-main.init();
+$(document).ready(function() {
+    main.init();
+});
+
+function decreaseQuantity(productId) {
+    var quantityElement = document.getElementById("quantity-" + productId);
+    var currentQuantity = parseInt(quantityElement.innerHTML);
+    if (currentQuantity > 1) {
+        quantityElement.innerHTML = currentQuantity - 1;
+    }
+}
+
+function increaseQuantity(productId) {
+    var quantityElement = document.getElementById("quantity-" + productId);
+    var currentQuantity = parseInt(quantityElement.innerHTML);
+    quantityElement.innerHTML = currentQuantity + 1;
+}

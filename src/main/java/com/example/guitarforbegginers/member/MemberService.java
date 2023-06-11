@@ -2,14 +2,8 @@ package com.example.guitarforbegginers.member;
 
 
 import com.example.guitarforbegginers.config.BaseException;
-import com.example.guitarforbegginers.member.dto.GetMemberRes;
-import com.example.guitarforbegginers.member.dto.PostLoginReq;
-import com.example.guitarforbegginers.member.dto.PostMemberReq;
-import com.example.guitarforbegginers.utils.AES128;
-import com.example.guitarforbegginers.utils.Secret;
-import lombok.Getter;
+import com.example.guitarforbegginers.member.dto.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,18 +21,12 @@ public class MemberService {
      * 회원가입
      */
     @Transactional
-    public Long save(PostMemberReq postMemberReq) {
-        String pwd;
-        try { //암호화시켜 DB에 저장
-            pwd = new AES128(Secret.USER_INFO_PASSWORD_KEY).encrypt(postMemberReq.getPassword());
-        } catch (Exception ignored) { //암호화 실패시 에러 발생
-            throw new IllegalAccessError("암호화 실패!");
-        }
+    public PostMemberRes save(PostMemberReq postMemberReq) throws BaseException{
         try {
             Member member = new Member();
-            member.createMember(postMemberReq.getLoginId(), pwd, postMemberReq.getEmail(), 1, 1);
+            member.createMember(postMemberReq.getLoginId(), postMemberReq.getPassword(), postMemberReq.getEmail(), 1, 1);
             memberRepository.save(member);
-            return member.getId();
+            return new PostMemberRes(member.getLoginId(), member.getId());
         } catch (Exception e) {
             throw new IllegalAccessError("데이터베이스 에러");
         }
@@ -46,14 +34,10 @@ public class MemberService {
     /**
      * 로그인
      */
+
     public Long login(PostLoginReq postLoginReq) throws BaseException{
         Member member = memberRepository.findByLoginId(postLoginReq.getLoginId());
-        String password;
-        try {
-            password = new AES128(Secret.USER_INFO_PASSWORD_KEY).decrypt(member.getPassword());
-        } catch (Exception ignored) {
-            throw new BaseException(PASSWORD_DECRYPTION_ERROR);
-        }
+        String password = member.getPassword();
         if(postLoginReq.getPassword().equals(password)) {
             return member.getId();
         }
@@ -105,9 +89,13 @@ public class MemberService {
         return member;
     }
 
+    //회원 정보 수정
     @Transactional
-    public int findMemberCount() {
-        int count = memberRepository.countMember();
-        return count;
+    public Long modifyMember(Long id, PatchMemberReq patchMemberReq) {
+        System.out.println("wafdssadgdsgsdgsdgsdg");
+        String email = patchMemberReq.getEmail();
+        Member member = memberRepository.findMemberById(id);
+        member.updateEmail(email);
+        return id;
     }
 }

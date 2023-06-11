@@ -1,7 +1,6 @@
 package com.example.guitarforbegginers.config;
 
 import lombok.Getter;
-import org.springframework.web.client.HttpClientErrorException;
 
 @Getter
 public enum BaseResponseStatus {
@@ -21,15 +20,23 @@ public enum BaseResponseStatus {
     INVALID_USER_JWT(false,2003,"권한이 없는 유저의 접근입니다."),
 
     // users
-    USERS_EMPTY_USER_ID(false, 2010, "유저 아이디 값을 확인해주세요."),
+    USERS_EMPTY_USER_ID(false, 2010, "아이디 형식을 확인해주세요."),
 
     // [POST] /users
     POST_USERS_EMPTY_EMAIL(false, 2015, "이메일을 입력해주세요."),
     POST_USERS_INVALID_EMAIL(false, 2016, "이메일 형식을 확인해주세요."),
     POST_USERS_EXISTS_EMAIL(false,2017,"중복된 이메일입니다."),
+    POST_USERS_INVALID_PW(false,2018, "비밀번호 형식을 확인해주세요."),
 
     // [POST] /boards
     POST_BOARDS_EMPTY_TITLE(false, 2018, "제목은 두 글자 이상으로 작성해주세요."),
+
+
+    EMPTY_CART_LIST(false, 2100, "장바구니에 상품을 담아주세요"),
+
+    SOLD_CART_LIST(false, 2101, "품절된 상품이 있습니다."),
+
+    LIMIT_CART_LIST(false, 2102, "상품 수량은 최대 3개까지 주문이 가능합니다."),
 
 
     /**

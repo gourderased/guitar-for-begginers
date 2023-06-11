@@ -40,7 +40,7 @@ public class Member extends BaseTimeEntity {
 
         return this;
     }
-    public void updateStatus(int status) {
-        this.status = status;
+    public void updateEmail(String email) {
+        this.email = email;
     }
 }

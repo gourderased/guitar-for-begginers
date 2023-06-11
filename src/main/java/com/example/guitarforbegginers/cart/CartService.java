@@ -1,9 +1,6 @@
 package com.example.guitarforbegginers.cart;
 
-import com.example.guitarforbegginers.cart.dto.GetCartRepoRes;
-import com.example.guitarforbegginers.cart.dto.GetCartRes;
-import com.example.guitarforbegginers.cart.dto.PostCartReq;
-import com.example.guitarforbegginers.cart.dto.PostPaymentReq;
+import com.example.guitarforbegginers.cart.dto.*;
 import com.example.guitarforbegginers.config.BaseException;
 import com.example.guitarforbegginers.member.Member;
 import com.example.guitarforbegginers.member.MemberService;
@@ -16,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.guitarforbegginers.config.BaseResponseStatus.DATABASE_ERROR;
+import static com.example.guitarforbegginers.config.BaseResponseStatus.*;
 
 @RequiredArgsConstructor
 @Service
@@ -80,7 +77,7 @@ public class CartService {
     // 1. 결제한 상품들 수량 감소
     // 2.장바구니 삭제
     @Transactional
-    public void processPayment( List<PostPaymentReq> paymentReqList) throws BaseException {
+    public PostPaymentRes processPayment(List<PostPaymentReq> paymentReqList) throws BaseException {
         for (PostPaymentReq paymentReq : paymentReqList) {
             Long memberId = paymentReq.getMemberId();
             Long productId = paymentReq.getProductId();
@@ -88,11 +85,14 @@ public class CartService {
 
             // 1. 수량 변경
             Product product = productService.getProductReturnProduct(productId);
+            if(quantity >= 5) throw new BaseException(LIMIT_CART_LIST);
+            if(product.getQuantity() < quantity) throw new BaseException(SOLD_CART_LIST);
             product.updateQuantity(quantity);
-            // 2. Delete cart
+            // 2. 장바구니에서 삭제
             cartRepository.deleteByMemberIdAndProductId(memberId, productId);
 
-            // Additional processing if needed
+
         }
+        return new PostPaymentRes((long) 1L);
     }
 }

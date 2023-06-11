@@ -2,7 +2,6 @@ package com.example.guitarforbegginers.board;
 
 
 import com.example.guitarforbegginers.board.dto.GetBoardRes;
-import com.example.guitarforbegginers.board.dto.PatchBoardReq;
 import com.example.guitarforbegginers.board.dto.PostBoardReq;
 import com.example.guitarforbegginers.board.dto.PostBoardRes;
 import com.example.guitarforbegginers.config.BaseException;
@@ -24,6 +23,7 @@ public class BoardController {
      */
     @PostMapping("/create")
     public BaseResponse<PostBoardRes> createBoard(@RequestBody PostBoardReq postBoardReq) {
+        System.out.println("controller");
         try {
             return new BaseResponse<>(boardService.createBoard(postBoardReq));
         } catch(BaseException exception) {
@@ -41,19 +41,6 @@ public class BoardController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
-
-    /**
-     * 게시글 수정
-     */
-    @PatchMapping("/update/{id}")
-    public BaseResponse<String> modifyBoard(@PathVariable Long id, @RequestBody PatchBoardReq patchBoardReq) {
-        try {
-            return new BaseResponse<>(boardService.modifyBoard(id, patchBoardReq));
-        } catch(BaseException exception) {
-            return new BaseResponse<>((exception.getStatus()));
-        }
-    }
-
 
     /**
      * 게시글 삭제
