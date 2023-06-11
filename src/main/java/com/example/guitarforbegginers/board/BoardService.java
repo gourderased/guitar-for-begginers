@@ -30,9 +30,9 @@ public class BoardService {
         try{
             Member member = memberRepository.findMemberById(postBoardReq.getMemberId());
             Board board = new Board();
-            board.createBoard(postBoardReq.getTitle(), postBoardReq.getContent(), member);
+            board.createBoard( postBoardReq.getContent(), member);
             boardRepository.save(board);
-            return new PostBoardRes(board.getTitle());
+            return new PostBoardRes(board.getContent());
         } catch(Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
@@ -45,8 +45,8 @@ public class BoardService {
     public String modifyBoard(Long id, PatchBoardReq patchBoardReq) throws BaseException {
         try{
             Board board = boardRepository.findById(id).orElseThrow();
-            board.updateBoard(patchBoardReq.getTitle(), patchBoardReq.getContent());
-            return board.getTitle();
+            board.updateBoard(patchBoardReq.getContent());
+            return board.getContent();
         } catch(Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
@@ -60,7 +60,7 @@ public class BoardService {
             Board board = boardRepository.findById(id).orElseThrow();
             Member member = board.getMember();
             String memberLoginId = member.getLoginId();
-            return new GetBoardRes(board.getId(), board.getTitle(), board.getContent(), board.getMember().getLoginId(), board.getCreateDate(), board.getModifiedDate());
+            return new GetBoardRes(board.getId(),  board.getContent(), board.getMember().getLoginId(), board.getCreateDate(), board.getModifiedDate());
         } catch(Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
@@ -72,7 +72,7 @@ public class BoardService {
         try {
             List<Board> boards = boardRepository.findBoards();
             List<GetBoardRes> getBoardRes = boards.stream()
-                    .map(board -> new GetBoardRes(board.getId(), board.getTitle(), board.getContent(), board.getMember().getLoginId(), board.getCreateDate(), board.getModifiedDate()))
+                    .map(board -> new GetBoardRes(board.getId(),  board.getContent(), board.getMember().getLoginId(), board.getCreateDate(), board.getModifiedDate()))
                     .collect(Collectors.toList());
             return getBoardRes;
         } catch (Exception exception) {

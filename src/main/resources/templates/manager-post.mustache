@@ -15,8 +15,6 @@
                 <button  type ="button" class="btn btn-danger" id="btn-board-delete"> 게시글 삭제</button>
 
             </div>
-
-
         </div>
     </div>
 
@@ -26,7 +24,6 @@
         <thead class="thead-strong">
         <tr>
             <th>게시글번호</th>
-            <th>제목</th>
             <th>내용</th>
             <th>작성자</th>
             <th>최초 생성일</th>
@@ -38,7 +35,6 @@
         {{#boards}}
             <tr>
                 <td>{{id}}</td>
-                <td>{{title}}</td>
                 <td>{{content}}</td>
                 <td>{{memberLoginId}}</td>
                 <td>{{createDate}}</td>

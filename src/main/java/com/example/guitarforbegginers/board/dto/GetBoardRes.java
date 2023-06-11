@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class GetBoardRes {
     private Long id;
-    private String title;
     private String content;
     private String MemberLoginId;
     private LocalDateTime createDate;

@@ -17,9 +17,6 @@ public class Board extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String title;
-
-    @Column(nullable = false)
     private String content;
 
 
@@ -27,15 +24,13 @@ public class Board extends BaseTimeEntity {
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
-    Board createBoard(String title, String content,  Member member) {
-        this.title = title;
+    Board createBoard( String content,  Member member) {
         this.content = content;
         this.member = member;
         return this;
     }
 
-    public void updateBoard(String title, String content) {
-        this.title = title;
+    public void updateBoard( String content) {
         this.content = content;
     }
 }

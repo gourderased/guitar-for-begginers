@@ -6,5 +6,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class PostBoardRes {
-    private String title;
+    private String content;
 }

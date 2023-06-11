@@ -7,8 +7,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class PostBoardReq {
-
-    private String title;
     private String content;
     private Long memberId;
 }
