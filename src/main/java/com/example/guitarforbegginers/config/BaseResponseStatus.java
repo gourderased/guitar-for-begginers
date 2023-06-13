@@ -38,7 +38,6 @@ public enum BaseResponseStatus {
 
     LIMIT_CART_LIST(false, 2102, "상품 수량은 최대 3개까지 주문이 가능합니다."),
 
-
     /**
      * 3000 : Response 오류
      */
@@ -48,7 +47,6 @@ public enum BaseResponseStatus {
     // [POST] /users
     DUPLICATED_EMAIL(false, 3013, "중복된 이메일입니다."),
     FAILED_TO_LOGIN(false,3014,"없는 아이디거나 비밀번호가 틀렸습니다."),
-
 
 
     /**
@@ -75,7 +73,6 @@ public enum BaseResponseStatus {
     DELETE_FAIL_BOARD(false,4001,"게시글 삭제에 실패하였습니다.");
 
     // 6000 : 필요시 만들어서 쓰세요
-
 
     private final boolean isSuccess;
     private final int code;
