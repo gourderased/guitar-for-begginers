@@ -12,8 +12,6 @@
 
             <div class="col-md-3">
             </div>
-
-
             <div class="col-md-8">
                 <ul class=" text-light nav justify-content-end" >
 
@@ -86,7 +84,17 @@
         {{/boards}}
         </tbody>
     </table>
+
+    <div class="pagination">
+        <ul class="pagination justify-content-center">
+            {{#pagination}}
+                <li class="{{#isActive}}active{{/isActive}}">
+                    <a class="page-link" href="/read?page={{pageNumber}}&size={{pageSize}}">{{pageNumber}}</a>
+                </li>
+
+            {{/pagination}}
+        </ul>
+    </div>
 </div>
 
 {{>layout/footer}}
-

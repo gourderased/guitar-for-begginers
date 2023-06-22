@@ -1,13 +1,15 @@
 package com.example.guitarforbegginers.board;
 
 import com.example.guitarforbegginers.board.dto.GetBoardRes;
-import com.example.guitarforbegginers.board.dto.PatchBoardReq;
 import com.example.guitarforbegginers.board.dto.PostBoardReq;
 import com.example.guitarforbegginers.board.dto.PostBoardRes;
 import com.example.guitarforbegginers.config.BaseException;
 import com.example.guitarforbegginers.member.Member;
 import com.example.guitarforbegginers.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,19 +40,7 @@ public class BoardService {
         }
     }
 
-    /**
-     * 글 수정
-     */
-    @Transactional
-    public String modifyBoard(Long id, PatchBoardReq patchBoardReq) throws BaseException {
-        try{
-            Board board = boardRepository.findById(id).orElseThrow();
-            board.updateBoard(patchBoardReq.getContent());
-            return board.getContent();
-        } catch(Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
+
 
     /**
      * 게시글 하나 조회
@@ -58,27 +48,40 @@ public class BoardService {
     public GetBoardRes getBoard(Long id) throws BaseException {
         try {
             Board board = boardRepository.findById(id).orElseThrow();
-            Member member = board.getMember();
-            String memberLoginId = member.getLoginId();
             return new GetBoardRes(board.getId(),  board.getContent(), board.getMember().getLoginId(), board.getCreateDate(), board.getModifiedDate());
         } catch(Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
     }
     /**
-     * 게시글 전체 조회
+     * 게시글 전체 조회(페이징 처리 X)
      */
     public List<GetBoardRes> getBoards() throws BaseException {
         try {
             List<Board> boards = boardRepository.findBoards();
-            List<GetBoardRes> getBoardRes = boards.stream()
+            return boards.stream()
                     .map(board -> new GetBoardRes(board.getId(),  board.getContent(), board.getMember().getLoginId(), board.getCreateDate(), board.getModifiedDate()))
                     .collect(Collectors.toList());
-            return getBoardRes;
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+    /**
+     * 게시글 전체 조회(페이징 처리 O)
+     */
+    public Page<GetBoardRes> getBoardss(Pageable pageable) throws BaseException {
+        try {
+            Page<Board> boardPage = boardRepository.findBoardss(pageable);
+            List<GetBoardRes> getBoardRes = boardPage.getContent().stream()
+                    .map(board -> new GetBoardRes(board.getId(),  board.getContent(), board.getMember().getLoginId(), board.getCreateDate(), board.getModifiedDate()))
+                    .collect(Collectors.toList());
+            return new PageImpl<>(getBoardRes, pageable, boardPage.getTotalElements());
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+
 
 
     /**

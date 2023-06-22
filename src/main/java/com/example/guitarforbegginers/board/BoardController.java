@@ -7,8 +7,11 @@ import com.example.guitarforbegginers.board.dto.PostBoardRes;
 import com.example.guitarforbegginers.config.BaseException;
 import com.example.guitarforbegginers.config.BaseResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -42,6 +45,20 @@ public class BoardController {
         }
     }
 
+    /**
+     * 게시글 전체 조회
+     */
+    @GetMapping("/read")
+    public List<GetBoardRes> getBoards(@RequestParam(defaultValue = "0") int page,
+                                       @RequestParam(defaultValue = "10") int size) {
+        try {
+            PageRequest pageRequest = PageRequest.of(page, size);
+            Page<GetBoardRes> boardPage = boardService.getBoardss(pageRequest);
+            return boardPage.getContent();
+        } catch (BaseException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
     /**
      * 게시글 삭제
      */
