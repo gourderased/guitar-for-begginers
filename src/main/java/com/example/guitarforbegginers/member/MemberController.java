@@ -4,7 +4,6 @@ package com.example.guitarforbegginers.member;
 import com.example.guitarforbegginers.config.BaseException;
 import com.example.guitarforbegginers.config.BaseResponse;
 import com.example.guitarforbegginers.member.dto.*;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,16 +44,11 @@ public class MemberController{
      */
     @PostMapping("/log-in")
     public Long login(@RequestBody PostLoginReq postLoginReq) throws BaseException {
-
-
-
-
         Long memberId = memberService.login(postLoginReq);
 
         HttpSession session = request.getSession();
         session.setAttribute("memberId", memberId);
         session.setAttribute("isLogin", true);
-
         return memberId;
     }
     /**

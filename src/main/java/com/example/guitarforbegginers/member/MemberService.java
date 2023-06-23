@@ -92,7 +92,6 @@ public class MemberService {
     //회원 정보 수정
     @Transactional
     public Long modifyMember(Long id, PatchMemberReq patchMemberReq) {
-        System.out.println("wafdssadgdsgsdgsdgsdg");
         String email = patchMemberReq.getEmail();
         Member member = memberRepository.findMemberById(id);
         member.updateEmail(email);
