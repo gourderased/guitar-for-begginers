@@ -201,7 +201,6 @@ var main = {
     //게시글 등록
     boardSave : function () {
         var data = {
-            title: $('#title').val(),
             content: $('#content').val(),
             memberId: $('#memberId').val()
         };
