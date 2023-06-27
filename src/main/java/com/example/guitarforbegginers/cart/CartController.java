@@ -30,14 +30,12 @@ public class CartController {
     //장바구니 상품 결제
 
     @PostMapping("/payment")
-    public BaseResponse<PostPaymentRes> processPayment(@RequestBody List<PostPaymentReq> paymentReqList) throws BaseException {
+    public BaseResponse<PostPaymentRes> processPayment(@RequestBody List<PostPaymentReq> paymentReqList)  {
         if(paymentReqList.isEmpty()) return new BaseResponse<>(EMPTY_CART_LIST);
         try {
             return new BaseResponse<>(cartService.processPayment(paymentReqList));
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
         }
-
-
     }
 }
