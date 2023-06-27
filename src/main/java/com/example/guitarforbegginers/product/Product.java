@@ -29,7 +29,7 @@ public class Product extends BaseTimeEntity {
     private Integer price;
 
     @Column(nullable = false)
-    private int quantity;
+    private Integer quantity;
 
     @OneToOne
     @JoinColumn(name="CATEGORY_ID")
