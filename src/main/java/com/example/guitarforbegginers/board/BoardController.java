@@ -53,7 +53,7 @@ public class BoardController {
                                        @RequestParam(defaultValue = "10") int size) {
         try {
             PageRequest pageRequest = PageRequest.of(page, size);
-            Page<GetBoardRes> boardPage = boardService.getBoardss(pageRequest);
+            Page<GetBoardRes> boardPage = boardService.getPagingBoards(pageRequest);
             return boardPage.getContent();
         } catch (BaseException exception) {
             throw new RuntimeException(exception);

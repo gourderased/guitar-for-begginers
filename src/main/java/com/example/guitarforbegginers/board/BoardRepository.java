@@ -14,5 +14,5 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findBoards();
 
     @Query("SELECT b FROM Board b")
-    Page<Board> findBoardss(Pageable pageable);
+    Page<Board> findPagingBoards(Pageable pageable);
 }

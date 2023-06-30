@@ -39,9 +39,6 @@ public class BoardService {
             throw new BaseException(DATABASE_ERROR);
         }
     }
-
-
-
     /**
      * 게시글 하나 조회
      */
@@ -69,9 +66,9 @@ public class BoardService {
     /**
      * 게시글 전체 조회(페이징 처리 O)
      */
-    public Page<GetBoardRes> getBoardss(Pageable pageable) throws BaseException {
+    public Page<GetBoardRes> getPagingBoards(Pageable pageable) throws BaseException {
         try {
-            Page<Board> boardPage = boardRepository.findBoardss(pageable);
+            Page<Board> boardPage = boardRepository.findPagingBoards(pageable);
             List<GetBoardRes> getBoardRes = boardPage.getContent().stream()
                     .map(board -> new GetBoardRes(board.getId(),  board.getContent(), board.getMember().getLoginId(), board.getCreateDate(), board.getModifiedDate()))
                     .collect(Collectors.toList());
@@ -80,10 +77,6 @@ public class BoardService {
             throw new BaseException(DATABASE_ERROR);
         }
     }
-
-
-
-
     /**
      * 게시글 삭제
      */
