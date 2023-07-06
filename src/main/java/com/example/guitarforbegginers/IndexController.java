@@ -11,9 +11,12 @@ import com.example.guitarforbegginers.member.dto.GetMemberRes;
 import com.example.guitarforbegginers.product.ProductService;
 import com.example.guitarforbegginers.product.dto.GetProductRes;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -42,18 +45,13 @@ public class IndexController {
         }
 
         if(isLogin) {
-
             Long id = (Long) session.getAttribute("memberId");
-
             Member member = memberService.findByIdAndReturnMember(id);
-
             model.addAttribute("loginId", member.getLoginId());
             model.addAttribute("isLogin", true);
             model.addAttribute("isLogout", false);
-
             if(member.getRole() == 1) {
                 model.addAttribute("isManager", false);
-
             }
             else {
                 model.addAttribute("isManager", true);
@@ -103,7 +101,6 @@ public class IndexController {
         else {
             return "member-login";
         }
-
     }
 
     /**
@@ -353,6 +350,8 @@ public class IndexController {
         }
         model.addAttribute("memberId", id);
         model.addAttribute("boards", boardService.getBoards());
+
+
         return "board-list";
     }
     /**
