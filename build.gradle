@@ -48,7 +48,7 @@ tasks.named('test') {
 processResources.dependsOn('copyPrivate')
 task copyPrivate(type: Copy) {
     copy {
-        from './gfb-private'
+        from './config'
         include "*.yml"
         into 'src/main/resources'
     }
