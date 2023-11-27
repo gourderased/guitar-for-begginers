@@ -1,0 +1,3 @@
+[submodule "gfb-submodule"]
+	path = config
+	url = https://github.com/gourderased/gfb-submodule.git
