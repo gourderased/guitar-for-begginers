@@ -45,9 +45,10 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+processResources.dependsOn('copyPrivate')
 task copyPrivate(type: Copy) {
     copy {
-        from './gfb-submodule'
+        from './gfb-private'
         include "*.yml"
         into 'src/main/resources'
     }
