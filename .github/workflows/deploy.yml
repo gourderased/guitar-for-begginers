@@ -43,7 +43,7 @@ jobs:
 
         # Docker 이미지 빌드
       - name: 도커 이미지 빌드
-        run: docker build -t gourderased/spring-project:latest
+        run: docker build -t gourderased/spring-project:latest .
 
         # DockerHub 로그인
       - name: Docker - Login to DockerHub
