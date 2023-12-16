@@ -39,10 +39,6 @@ dependencies {
     //머스테치
     implementation('org.springframework.boot:spring-boot-starter-mustache')
 
-    //oauth
-    implementation 'org.springframework.boot:spring-boots-starter-oauth2-client'
-
-
 }
 
 tasks.named('test') {
